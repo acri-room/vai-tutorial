@@ -1,0 +1,5 @@
+_target_: src.data.cifar10_datamodule.Cifar10DataModule
+data_dir: ${paths.data_dir}
+batch_size: 2048 # Needs to be divisible by the number of devices (e.g., if in a distributed setup)
+num_workers: 15
+pin_memory: true

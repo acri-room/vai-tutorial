@@ -1,0 +1,33 @@
+_target_: src.models.cifar10_module.Cifar10Module
+
+optimizer:
+  _target_: torch.optim.AdamW
+  _partial_: true
+  lr: 0.005
+  weight_decay: 1.0
+
+scheduler:
+  _target_: torch.optim.lr_scheduler.OneCycleLR
+  _partial_: true
+  max_lr: 0.005
+  epochs: ${trainer.max_epochs}
+  steps_per_epoch: 25
+  three_phase: false
+
+  #net:
+  #  _target_: torchvision.models.resnet.resnet18
+  #  num_classes: 10
+
+net:
+  _target_: src.models.components.resnet9.ResNet9
+  in_channels: 3
+  num_classes: 10
+
+# compile model for faster training with pytorch 2.0
+compile: false
+
+#optimizer_interval: epoch
+optimizer_interval: step
+
+quant_mode: float
+quant_dir: quantized
