@@ -14,9 +14,9 @@ scheduler:
   steps_per_epoch: 25
   three_phase: false
 
-  #net:
-  #  _target_: torchvision.models.resnet.resnet18
-  #  num_classes: 10
+#net:
+#  _target_: torchvision.models.resnet.resnet18
+#  num_classes: 10
 
 net:
   _target_: src.models.components.resnet9.ResNet9
