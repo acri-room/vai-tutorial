@@ -21,8 +21,8 @@ PRJ_DIR=$(dirname $(dirname $(readlink -f $0)))
 
 case $(hostname) in
   as006)
-    IMAGE_NAME=xilinx/vitis-ai-pytorch-rocm:ubuntu2004-3.5.0.306
-    ROCM=1
+    IMAGE_NAME=xilinx/vitis-ai-pytorch-cpu:ubuntu2004-3.5.0.306
+    ROCM=0
     ;;
   as005)
     IMAGE_NAME=xilinx/vitis-ai-pytorch-cpu:ubuntu2004-3.0.0.106
