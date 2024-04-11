@@ -1,0 +1,16 @@
+defaults:
+  - data: cifar10 # choose datamodule with `test_dataloader()` for evaluation
+  - model: cifar10
+  - paths: default
+  - hydra: default
+  - _self_
+
+task_name: "run"
+
+data:
+  batch_size: 1
+  num_workers: 8
+
+xmodel: ???
+
+num_batches: 2

@@ -156,5 +156,6 @@ configs/local/default.yaml
 .confirm
 .build
 .local
+.repo
 quantized
 compiled

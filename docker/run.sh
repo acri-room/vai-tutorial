@@ -34,6 +34,16 @@ case $(hostname) in
     ;;
 esac
 
+image_exists=`(docker inspect --type=image $IMAGE_NAME 2> /dev/null || true) | jq 'length'`
+if [[ $image_exists -eq 0 ]] ; then
+  echo "Couldn't find Docker image: $IMAGE_NAME"
+  image_tar=/tools/docker/${IMAGE_NAME/://}.tar
+  if [[ -e $image_tar ]] ; then
+    echo "Loading Docker image from $image_tar..."
+    docker load < $image_tar
+  fi
+fi
+
 DEFAULT_COMMAND="bash"
 if [[ $# -gt 0 ]]; then
   DEFAULT_COMMAND="$@"
