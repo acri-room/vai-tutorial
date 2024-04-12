@@ -20,12 +20,12 @@ fi
 PRJ_DIR=$(dirname $(dirname $(readlink -f $0)))
 
 case $(hostname) in
-  as006)
+  as006|as106)
     IMAGE_NAME=xilinx/vitis-ai-pytorch-cpu:ubuntu2004-3.5.0.306
     ROCM=0
     ;;
-  as005)
-    IMAGE_NAME=xilinx/vitis-ai-pytorch-cpu:ubuntu2004-3.0.0.106
+  as005|as105)
+    IMAGE_NAME=xilinx/vitis-ai-pytorch-cpu:ubuntu2004-3.5.0.306
     ROCM=0
     ;;
   *)
@@ -42,11 +42,6 @@ if [[ $image_exists -eq 0 ]] ; then
     echo "Loading Docker image from $image_tar..."
     docker load < $image_tar
   fi
-fi
-
-DEFAULT_COMMAND="bash"
-if [[ $# -gt 0 ]]; then
-  DEFAULT_COMMAND="$@"
 fi
 
 xclmgmt_driver="$(find /dev -name xclmgmt\* 2> /dev/null)"
@@ -167,5 +162,10 @@ if [[ $ROCM -eq 1 ]] ; then
   docker exec vitisai rm /etc/alternatives/rocm
   docker exec vitisai ln -s /opt/rocm-5.7.1/ /etc/alternatives/rocm
 fi
-docker exec -it vitisai $DEFAULT_COMMAND
+
+if [[ $# -gt 0 ]]; then
+  docker exec -it vitisai "$@"
+else
+  docker exec -it vitisai bash
+fi
 
